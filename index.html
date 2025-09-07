@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Display with Hue Slider</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* Changed to column to stack slider and SVG */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: sans-serif;
+        }
+        svg {
+            margin-top: 20px; /* Space between slider and SVG */
+        }
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        input[type="range"] {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="controls">
+    <label for="hue-slider">Hue Rotation (degrees):</label>
+    <input type="range" id="hue-slider" min="0" max="360" step="1" value="0">
+    <span id="hue-value">0°</span>
+    <input type="checkbox" id="darkmode-toggle">
+    <label for="darkmode-toggle">Dark Mode</label>
+</div>
+
+<svg id="my-svg" width="500" height="500" viewBox="1 -32 498 564" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="250,0 467,125 467,375 250,500 33,375 33,125" fill="none" stroke="white" stroke-width="63" stroke-linejoin="round"/>
+    <!-- Existing black outline -->
+    <polygon points="250,0 467,125 467,375 250,500 33,375 33,125" fill="none" stroke="black" stroke-width="60" stroke-linejoin="round"/>
+
+    <!-- Storing original OKLCH string -->
+    <polygon data-original-oklch="oklch(59.96% 0.197 29.00)" points="250,0 33,125 215,84" fill="oklch(59.96% 0.197 29.00)"/>
+    <polygon data-original-oklch="oklch(55.65% 0.195 28.36)" points="250,0 215,84 467,125" fill="oklch(55.65% 0.195 28.36)"/>
+    <polygon data-original-oklch="oklch(63.22% 0.200 29.19)" points="33,125 100,191 215,84" fill="oklch(63.22% 0.200 29.19)"/>
+    <polygon data-original-oklch="oklch(48.98% 0.176 27.78)" points="215,84 345,218 467,125" fill="oklch(48.98% 0.176 27.78)"/>
+    <polygon data-original-oklch="oklch(58.59% 0.199 28.49)" points="100,191 215,84 178,244" fill="oklch(58.59% 0.199 28.49)"/>
+    <polygon data-original-oklch="oklch(54.58% 0.195 28.54)" points="215,84 178,244 345,218" fill="oklch(54.58% 0.195 28.54)"/>
+    <polygon data-original-oklch="oklch(40.11% 0.142 27.27)" points="467,125 345,218 402,295" fill="oklch(40.11% 0.142 27.27)"/>
+    <polygon data-original-oklch="oklch(56.62% 0.199 28.57)" points="33,125 33,375 100,191" fill="oklch(56.62% 0.199 28.57)"/>
+    <polygon data-original-oklch="oklch(48.70% 0.175 27.84)" points="178,244 323,332 345,218" fill="oklch(48.70% 0.175 27.84)"/>
+    <polygon data-original-oklch="oklch(37.41% 0.133 26.16)" points="467,125 467,375 402,295" fill="oklch(37.41% 0.133 26.16)"/>
+    <polygon data-original-oklch="oklch(53.49% 0.189 28.51)" points="100,191 178,244 33,375" fill="oklch(53.49% 0.189 28.51)"/>
+    <polygon data-original-oklch="oklch(35.03% 0.124 25.46)" points="345,218 402,295 323,332" fill="oklch(35.03% 0.124 25.46)"/>
+    <polygon data-original-oklch="oklch(43.68% 0.157 27.01)" points="221,425 178,244 323,332" fill="oklch(43.68% 0.157 27.01)"/>
+    <polygon data-original-oklch="oklch(32.50% 0.115 25.37)" points="467,375 323,332 402,295" fill="oklch(32.50% 0.115 25.37)"/>
+    <polygon data-original-oklch="oklch(47.13% 0.168 27.51)" points="33,375 221,425 178,244" fill="oklch(47.13% 0.168 27.51)"/>
+    <polygon data-original-oklch="oklch(30.97% 0.108 24.46)" points="467,375 250,500 323,332" fill="oklch(30.97% 0.108 24.46)"/>
+    <polygon data-original-oklch="oklch(36.44% 0.131 25.85)" points="250,500 221,425 323,332" fill="oklch(36.44% 0.131 25.85)"/>
+    <polygon data-original-oklch="oklch(39.32% 0.138 27.57)" points="33,375 250,500 221,425" fill="oklch(39.32% 0.138 27.57)"/>
+
+    <line x1="221" y1="425" x2="250" y2="500" stroke="#00000010" stroke-width="2"/>
+    <line x1="221" y1="425" x2="323" y2="332" stroke="#00000010" stroke-width="2"/>
+    <line x1="323" y1="332" x2="250" y2="500" stroke="#00000010" stroke-width="2"/>
+    <line x1="323" y1="332" x2="467" y2="375" stroke="#00000010" stroke-width="2"/>
+    <line x1="402" y1="295" x2="467" y2="375" stroke="#00000010" stroke-width="2"/>
+    <line x1="323" y1="332" x2="402" y2="295" stroke="#00000010" stroke-width="2"/>
+    <line x1="345" y1="218" x2="402" y2="295" stroke="#00000010" stroke-width="2"/>
+    <line x1="345" y1="218" x2="323" y2="332" stroke="#00000010" stroke-width="2"/>
+    <line x1="323" y1="332" x2="178" y2="244" stroke="#00000010" stroke-width="2"/>
+    <line x1="345" y1="218" x2="178" y2="244" stroke="#00000010" stroke-width="2"/>
+    <line x1="178" y1="244" x2="221" y2="425" stroke="#00000010" stroke-width="2"/>
+    <line x1="33" y1="375" x2="221" y2="425" stroke="#00000010" stroke-width="2"/>
+    <line x1="178" y1="244" x2="33" y2="375" stroke="#00000010" stroke-width="2"/>
+    <line x1="178" y1="244" x2="100" y2="191" stroke="#00000010" stroke-width="2"/>
+    <line x1="100" y1="191" x2="33" y2="375" stroke="#00000010" stroke-width="2"/>
+    <line x1="33" y1="125" x2="100" y2="191" stroke="#00000010" stroke-width="2"/>
+    <line x1="215" y1="84" x2="33" y2="125" stroke="#00000010" stroke-width="2"/>
+    <line x1="215" y1="84" x2="100" y2="191" stroke="#00000010" stroke-width="2"/>
+    <line x1="215" y1="84" x2="178" y2="244" stroke="#00000010" stroke-width="2"/>
+    <line x1="215" y1="84" x2="250" y2="0" stroke="#00000010" stroke-width="2"/>
+    <line x1="215" y1="84" x2="345" y2="218" stroke="#00000010" stroke-width="2"/>
+    <line x1="215" y1="84" x2="467" y2="125" stroke="#00000010" stroke-width="2"/>
+    <line x1="345" y1="218" x2="467" y2="125" stroke="#00000010" stroke-width="2"/>
+    <line x1="402" y1="295" x2="467" y2="125" stroke="#00000010" stroke-width="2"/>
+</svg>
+
+<script>
+    const hueSlider = document.getElementById('hue-slider');
+    const hueValueSpan = document.getElementById('hue-value');
+    const svgElement = document.getElementById('my-svg');
+    const coloredPolygons = svgElement.querySelectorAll('polygon[data-original-oklch]');
+    const darkmodeToggle = document.getElementById('darkmode-toggle');
+    const htmlElement = document.documentElement; // Get the html element
+
+    function updateColors(hueOffset) {
+        hueValueSpan.textContent = `${hueOffset}°`;
+        coloredPolygons.forEach(polygon => {
+            const originalFill = polygon.getAttribute('data-original-oklch');
+            const match = originalFill.match(/oklch\((\d+\.?\d*)% (\d+\.?\d*) (\d+\.?\d*)\)/);
+
+            if (match) {
+                const lightness = parseFloat(match[1]);
+                const chroma = parseFloat(match[2]);
+                const originalHue = parseFloat(match[3]);
+
+                let newHue = originalHue + hueOffset;
+
+                // Ensure hue wraps around 0-360 degrees
+                newHue = newHue % 360;
+                if (newHue < 0) {
+                    newHue += 360;
+                }
+
+                polygon.setAttribute('fill', `oklch(${lightness}% ${chroma.toFixed(3)} ${newHue.toFixed(2)})`);
+            }
+        });
+    }
+
+    function toggleDarkMode() {
+        if (darkmodeToggle.checked) {
+            htmlElement.style.setProperty('color-scheme', 'dark');
+        } else {
+            htmlElement.style.setProperty('color-scheme', 'light');
+        }
+    }
+
+    hueSlider.addEventListener('input', (event) => {
+        const offset = parseFloat(event.target.value);
+        updateColors(offset);
+    });
+
+    darkmodeToggle.addEventListener('change', toggleDarkMode);
+
+    // Initial update on page load
+    updateColors(parseFloat(hueSlider.value));
+    // Set initial color-scheme based on checkbox state (default to light if not checked)
+    toggleDarkMode();
+</script>
+</body>
+</html>

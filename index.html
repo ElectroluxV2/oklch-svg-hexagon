@@ -3,28 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SVG Display with Hue Slider</title>
+    <title>SVG Display with Hue Slider (Responsive)</title>
     <style>
         body {
+            color-scheme: light dark;
             margin: 0;
             display: flex;
-            flex-direction: column; /* Changed to column to stack slider and SVG */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             font-family: sans-serif;
+            padding: 20px;
+            box-sizing: border-box;
         }
         svg {
-            margin-top: 20px; /* Space between slider and SVG */
+            margin-top: 20px;
+            max-width: 90vw;
+            height: auto;
+            display: block;
         }
         .controls {
             margin-bottom: 20px;
             display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 15px; /* Spacing between distinct control groups */
+            max-width: 100%;
+        }
+        /* New style for grouping checkbox and label */
+        .darkmode-group {
+            display: flex; /* Make the group itself a flex container */
+            align-items: center;
+            gap: 5px; /* Small gap between checkbox and its label */
         }
         input[type="range"] {
-            width: 300px;
+            width: clamp(200px, 60vw, 400px);
+        }
+        body {
+            background-color: var(--color-bg, white);
+            color: var(--color-text, black);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        @media (prefers-color-scheme: dark) {
+            body {
+                --color-bg: #1a1a1a;
+                --color-text: #e0e0e0;
+            }
+        }
+        html[color-scheme="dark"] body {
+            --color-bg: #1a1a1a;
+            --color-text: #e0e0e0;
+        }
+        html[color-scheme="light"] body {
+            --color-bg: white;
+            --color-text: black;
         }
     </style>
 </head>
@@ -33,8 +67,12 @@
     <label for="hue-slider">Hue Rotation (degrees):</label>
     <input type="range" id="hue-slider" min="0" max="360" step="1" value="0">
     <span id="hue-value">0°</span>
-    <input type="checkbox" id="darkmode-toggle">
-    <label for="darkmode-toggle">Dark Mode</label>
+
+    <!-- Grouped dark mode checkbox and label -->
+    <div class="darkmode-group">
+        <input type="checkbox" id="darkmode-toggle">
+        <label for="darkmode-toggle">Dark Mode</label>
+    </div>
 </div>
 
 <svg id="my-svg" width="500" height="500" viewBox="1 -32 498 564" xmlns="http://www.w3.org/2000/svg">
@@ -94,7 +132,7 @@
     const svgElement = document.getElementById('my-svg');
     const coloredPolygons = svgElement.querySelectorAll('polygon[data-original-oklch]');
     const darkmodeToggle = document.getElementById('darkmode-toggle');
-    const htmlElement = document.documentElement; // Get the html element
+    const htmlElement = document.documentElement;
 
     function updateColors(hueOffset) {
         hueValueSpan.textContent = `${hueOffset}°`;
@@ -109,7 +147,6 @@
 
                 let newHue = originalHue + hueOffset;
 
-                // Ensure hue wraps around 0-360 degrees
                 newHue = newHue % 360;
                 if (newHue < 0) {
                     newHue += 360;
@@ -122,9 +159,9 @@
 
     function toggleDarkMode() {
         if (darkmodeToggle.checked) {
-            htmlElement.style.setProperty('color-scheme', 'dark');
+            htmlElement.setAttribute('color-scheme', 'dark');
         } else {
-            htmlElement.style.setProperty('color-scheme', 'light');
+            htmlElement.setAttribute('color-scheme', 'light');
         }
     }
 
@@ -137,8 +174,13 @@
 
     // Initial update on page load
     updateColors(parseFloat(hueSlider.value));
-    // Set initial color-scheme based on checkbox state (default to light if not checked)
-    toggleDarkMode();
+
+    // Initialize dark mode based on user's system preference or checkbox state
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
+        darkmodeToggle.checked = true;
+    }
+    toggleDarkMode(); // Apply the initial color scheme
 </script>
 </body>
 </html>
